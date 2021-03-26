@@ -1,0 +1,15 @@
+<html>
+    <body>
+        <div id="typeahead">
+            <form autocomplete="off">
+                <input type="text" value="" id="query">
+                <input type="submit" value="Search">
+            </form>
+        </div>
+        <script src="/src/typeahead.js"></script>
+        <script>
+            var elm = document.querySelector("#typeahead")
+            TypeAhead.init(elm);
+        </script>
+    </body>
+</html>
