@@ -20,7 +20,6 @@ var TypeAhead = (function () {
                     'value': v
                 }
             }));
-            console.log('dispatched event %s', k);
         }
     };
     (function() {
@@ -36,7 +35,7 @@ var TypeAhead = (function () {
     // Render suggestions
     renderSuggestions = function(products) {
         var options = products.map(function(p) {
-            return '<div>'+ p.name +'</div>';
+            return '<div data-type="product" data-url="'+ p.url +'">'+ p.name +'</div>';
         }); 
         domElm.querySelector('#options').innerHTML = options.join('');
     };
@@ -63,6 +62,14 @@ var TypeAhead = (function () {
                     }
                 }
             });
+            // Click handler
+            domElm.addEventListener('click', function(evnt) {
+               var elm = evnt.target;
+                if (elm.hasAttribute('data-type')) {
+                    document.location = '#!/products/'+ elm.getAttribute('data-url');
+                    listElm.innerHTML = '';
+                }
+            });
             // Event triggers
             domElm.querySelector('#query')
                 .addEventListener('keyup', function(evnt) {
@@ -73,3 +80,5 @@ var TypeAhead = (function () {
         },
     };
 })();
+//
+TypeAhead.init(document.querySelector('#typeahead'));
