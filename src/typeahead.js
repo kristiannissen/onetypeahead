@@ -35,7 +35,7 @@ var TypeAhead = (function () {
     // Render suggestions
     renderSuggestions = function(products) {
         var options = products.map(function(p) {
-            return `<div data-type="product" data-url="${p.url}">${p.name}</div>`;
+            return `<div data-url="${p.url}">${p.name}</div>`;
         }); 
         domElm.querySelector("#options").innerHTML = options.join("");
     };
@@ -57,8 +57,10 @@ var TypeAhead = (function () {
                         });
                         listElm.innerHtml = "";
                         renderSuggestions(products);
+                        listElm.style = "visibility: visible;";
                     } else {
                         listElm.innerHTML = "";
+                        listElm.style = "visibility: hidden;";
                     }
                 }
             });
@@ -71,7 +73,8 @@ var TypeAhead = (function () {
             domElm.addEventListener("click", function(evnt) {
                var elm = evnt.target;
                 if (elm.hasAttribute("data-type")) {
-                    document.location = "#!/products/"+ elm.getAttribute("data-url");
+                    // window.history.pushState({}, "", "#!/products/"+ elm.getAttribute("data-url"));
+                    document.location.hash = "#!/products/"+ elm.getAttribute("data-url");
                     listElm.innerHTML = "";
                 }
             });
@@ -81,6 +84,16 @@ var TypeAhead = (function () {
                     evnt.preventDefault();
                     // Change state
                     setState("query", evnt.target.value.trim());
+                });
+            // Toggle bottom border on focus
+            domElm.querySelector("#query")
+                .addEventListener("focus", function(evnt) {
+                    evnt.target.style = "border-bottom: 1px solid rgb(237, 100, 47);";
+                });
+            // Toggle bottom border on blur
+            domElm.querySelector("#query")
+                .addEventListener("blur", function(evnt) {
+                    evnt.target.style = "border-bottom: 1px solid #000;"
                 });
         },
     };
