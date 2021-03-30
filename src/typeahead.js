@@ -24,7 +24,7 @@ var TypeAhead = (function () {
     };
     (function() {
         // Fetch products
-        fetch("/products.json")
+        fetch("/____webshop/v1/e-voke.dk/products?s=manual&o=asc&offset=0&limit=300&category=")
             .then(function(resp) {
                 return resp.json();
             })
