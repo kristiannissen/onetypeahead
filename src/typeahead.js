@@ -1,4 +1,3 @@
-"use strict";
 /**
  * @file: typeahead.js
  */
