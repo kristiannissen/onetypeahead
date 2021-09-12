@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @file: typeahead.js
  */
@@ -10,7 +11,7 @@ var TypeAhead = (function () {
     };
     var domElm = null;
     // Set state
-    setState = function(k, v) {
+    var setState = function(k, v) {
         if (state.hasOwnProperty(k) && state[k] !== v) {
             state[k] = v;
             // Dispatch Event
@@ -24,7 +25,7 @@ var TypeAhead = (function () {
     };
     (function() {
         // Fetch products
-        fetch("/____webshop/v1/e-voke.dk/products?s=manual&o=asc&offset=0&limit=300&category=")
+        fetch("/products.json")
             .then(function(resp) {
                 return resp.json();
             })
@@ -51,9 +52,9 @@ var TypeAhead = (function () {
 
             domElm.addEventListener("stateChanged", function(evnt) {
                 if (evnt.detail.key == "query") {
-                    if (evnt.detail.value.length > 3) {
+                    if (evnt.detail.value.length > 2) {
                         var products = state.products.filter(function(p) {
-                            return p.name.toLowerCase().includes(evnt.detail.value);
+                            return p.name.toLowerCase().includes(evnt.detail.value.toLowerCase());
                         });
                         listElm.innerHtml = "";
                         renderSuggestions(products);
