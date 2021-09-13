@@ -24,7 +24,7 @@ var TypeAhead = (function () {
     };
     (function() {
         // Fetch products
-        fetch("/products.json")
+        fetch("/____webshop/v1/e-voke.dk/products?s=manual&o=asc&offset=0&limit=300&category=")
             .then(function(resp) {
                 return resp.json();
             })
@@ -72,8 +72,7 @@ var TypeAhead = (function () {
             // Click handler
             domElm.addEventListener("click", function(evnt) {
                var elm = evnt.target;
-                if (elm.hasAttribute("data-type")) {
-                    // window.history.pushState({}, "", "#!/products/"+ elm.getAttribute("data-url"));
+                if (elm.getAttribute("data-url")) {
                     document.location.hash = "#!/products/"+ elm.getAttribute("data-url");
                     listElm.innerHTML = "";
                 }
